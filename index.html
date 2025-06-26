@@ -1,110 +1,84 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AparcaYa</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AparcaYa</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #f5f9ff, #dceeff);
+      color: #333;
+    }
 
-      body {
-        background: linear-gradient(180deg, #e6f0ff, #ffffff);
-        color: #333;
-        animation: fadeIn 1s ease-in;
-      }
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.3em;
+    }
 
-      header {
-        background-color: #007bff;
-        padding: 2rem;
-        color: white;
-        text-align: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
+    header p {
+      font-size: 1.2rem;
+      margin: 0;
+    }
 
-      section {
-        padding: 3rem 1rem;
-        max-width: 900px;
-        margin: 0 auto;
-        animation: fadeIn 1.5s ease-in-out;
-      }
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
 
-      h1 {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
-      }
+    main h2 {
+      color: #007bff;
+      margin-top: 0;
+    }
 
-      h2 {
-        font-size: 1.6rem;
-        color: #007bff;
-        margin-bottom: 1rem;
-      }
+    ul {
+      padding-left: 20px;
+      line-height: 1.6;
+    }
 
-      ul {
-        margin-left: 1.5rem;
-        list-style: disc;
-      }
+    footer {
+      background-color: #f1f1f1;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AparcaYa</h1>
+    <p>Encuentra aparcamiento en tu ciudad de forma rápida y sencilla</p>
+  </header>
 
-      footer {
-        background-color: #f5f5f5;
-        text-align: center;
-        padding: 1rem;
-        margin-top: 2rem;
-        color: #666;
-        font-size: 0.9rem;
-      }
+  <main>
+    <h2>¿Qué es AparcaYa?</h2>
+    <p>AparcaYa es una app móvil que te ayuda a encontrar plazas de aparcamiento disponibles en zonas urbanas congestionadas.</p>
 
-      .container {
-        padding: 2rem;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease-in-out;
-      }
+    <h2>¿Cómo funciona?</h2>
+    <ul>
+      <li>Consulta plazas disponibles en tiempo real.</li>
+      <li>Reserva tu sitio antes de llegar.</li>
+      <li>Contribuye a la comunidad informando cuando te vayas.</li>
+    </ul>
+  </main>
 
-      .container:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 20px rgba(0, 123, 255, 0.2);
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>AparcaYa</h1>
-      <p>Encuentra aparcamiento en tu ciudad de forma rápida y sencilla</p>
-    </header>
-
-    <section class="container">
-      <h2>¿Qué es AparcaYa?</h2>
-      <p>
-        AparcaYa es una app móvil que te ayuda a encontrar plazas de aparcamiento disponibles en zonas urbanas congestionadas.
-      </p>
-
-      <h2>¿Cómo funciona?</h2>
-      <ul>
-        <li>Consulta plazas disponibles en tiempo real.</li>
-        <li>Reserva tu sitio antes de llegar.</li>
-        <li>Contribuye a la comunidad informando cuando te vayas.</li>
-      </ul>
-    </section>
-
-    <footer>
-      &copy; 2025 AparcaYa. Todos los derechos reservados.
-    </footer>
-  </body>
+  <footer>
+    © 2025 AparcaYa. Todos los derechos reservados.
+  </footer>
+</body>
 </html>
