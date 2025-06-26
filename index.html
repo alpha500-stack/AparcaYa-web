@@ -1,33 +1,110 @@
-
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AparcaYa - Encuentra aparcamiento fácil</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AparcaYa</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(180deg, #e6f0ff, #ffffff);
+        color: #333;
+        animation: fadeIn 1s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      header {
+        background-color: #007bff;
+        padding: 2rem;
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      section {
+        padding: 3rem 1rem;
+        max-width: 900px;
+        margin: 0 auto;
+        animation: fadeIn 1.5s ease-in-out;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+        color: #007bff;
+        margin-bottom: 1rem;
+      }
+
+      ul {
+        margin-left: 1.5rem;
+        list-style: disc;
+      }
+
+      footer {
+        background-color: #f5f5f5;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 2rem;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .container {
+        padding: 2rem;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease-in-out;
+      }
+
+      .container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 20px rgba(0, 123, 255, 0.2);
+      }
+    </style>
+  </head>
+  <body>
     <header>
-        <h1>AparcaYa</h1>
-        <p>Encuentra aparcamiento en tu ciudad de forma rápida y sencilla</p>
+      <h1>AparcaYa</h1>
+      <p>Encuentra aparcamiento en tu ciudad de forma rápida y sencilla</p>
     </header>
-    <main>
-        <section>
-            <h2>¿Qué es AparcaYa?</h2>
-            <p>AparcaYa es una app móvil que te ayuda a encontrar plazas de aparcamiento disponibles en zonas urbanas congestionadas.</p>
-        </section>
-        <section>
-            <h2>¿Cómo funciona?</h2>
-            <ul>
-                <li>Consulta plazas disponibles en tiempo real.</li>
-                <li>Reserva tu sitio antes de llegar.</li>
-                <li>Contribuye a la comunidad informando cuando te vayas.</li>
-            </ul>
-        </section>
-    </main>
+
+    <section class="container">
+      <h2>¿Qué es AparcaYa?</h2>
+      <p>
+        AparcaYa es una app móvil que te ayuda a encontrar plazas de aparcamiento disponibles en zonas urbanas congestionadas.
+      </p>
+
+      <h2>¿Cómo funciona?</h2>
+      <ul>
+        <li>Consulta plazas disponibles en tiempo real.</li>
+        <li>Reserva tu sitio antes de llegar.</li>
+        <li>Contribuye a la comunidad informando cuando te vayas.</li>
+      </ul>
+    </section>
+
     <footer>
-        <p>&copy; 2025 AparcaYa. Todos los derechos reservados.</p>
+      &copy; 2025 AparcaYa. Todos los derechos reservados.
     </footer>
-</body>
+  </body>
 </html>
