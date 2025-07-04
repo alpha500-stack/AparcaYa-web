@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galería - AparcaYa</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: linear-gradient(120deg, #b6e0fe, #a7c7ff, #d0e6ff, #b6e0fe);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #222;
+    }
+
+    /* Navegación */
+    nav {
+      background: linear-gradient(120deg, #5fa8ff, #7ecbff, #b6e0fe, #5fa8ff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    .nav-menu li a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .nav-menu li a:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .nav-menu li a.active {
+      background-color: rgba(255,255,255,0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #007bff;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .nav-menu li {
+        margin: 0.5rem 0;
+      }
+    }
+
+    header {
+      background: linear-gradient(120deg, #5fa8ff, #7ecbff, #b6e0fe, #5fa8ff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.3em;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    main {
+      max-width: 1400px;
+      width: 95vw;
+      margin: 40px auto;
+      padding: 20px 24px;
+      background-color: #fafdff;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .gallery-header h2 {
+      color: #5fa8ff;
+      margin-bottom: 10px;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+
+    .gallery-filters {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border: 2px solid #007bff;
+      background: white;
+      color: #007bff;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: #007bff;
+      color: white;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin: 48px 0;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      border: 2px solid #e3f0ff;
+      box-shadow: 0 4px 16px rgba(80,140,255,0.08);
+      transition: box-shadow 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    .gallery-item:hover {
+      box-shadow: 0 8px 32px rgba(80,140,255,0.16);
+      transform: translateY(-4px) scale(1.03);
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(135deg, #e3f0ff 60%, #fafdff 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5fa8ff;
+      font-size: 3rem;
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay-content {
+      text-align: center;
+      color: white;
+    }
+
+    .gallery-overlay-content h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .gallery-overlay-content p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .gallery-category {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #e3f0ff;
+      color: #5fa8ff;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+    }
+
+    .modal-content {
+      margin: auto;
+      display: block;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90%;
+      margin-top: 5%;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close-modal:hover {
+      color: #bbb;
+    }
+
+    .modal-caption {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+      height: 150px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: #007bff;
+      color: white;
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      margin: 10px 0;
+    }
+
+    .cta-button:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      background-color: #f1f1f1;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+      
+      .modal-content {
+        width: 95%;
+        margin-top: 10%;
+      }
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">AparcaYa</a>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="funcionalidades.html">Funcionalidades</a></li>
+        <li><a href="como-funciona.html">Cómo Funciona</a></li>
+        <li><a href="precios.html">Precios</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="galeria.html" class="active">Galería</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Galería</h1>
+    <p>Descubre AparcaYa a través de nuestras imágenes</p>
+  </header>
+
+  <main>
+    <div class="gallery-header">
+      <h2>Nuestra Galería Visual</h2>
+      <p>Explora capturas de pantalla de la app, fotos de nuestro equipo y eventos especiales</p>
+    </div>
+
+    <div class="gallery-filters">
+      <button class="filter-btn active" onclick="filterGallery('all')">Todas</button>
+      <button class="filter-btn" onclick="filterGallery('app')">App Screenshots</button>
+      <button class="filter-btn" onclick="filterGallery('oficina')">Oficina</button>
+      <button class="filter-btn" onclick="filterGallery('eventos')">Eventos</button>
+      <button class="filter-btn" onclick="filterGallery('equipo')">Equipo</button>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item" data-category="app" onclick="openModal(this)">
+        <div class="gallery-image">📱</div>
+        <div class="gallery-category">App</div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-content">
+            <h3>Pantalla Principal</h3>
+            <p>Interfaz principal de la aplicación</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="app" onclick="openModal(this)">
+        <div class="gallery-image">🗺️</div>
+        <div class="gallery-category">App</div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-content">
+            <h3>Mapa Interactivo</h3>
+            <p>Búsqueda de plazas en tiempo real</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="app" onclick="openModal(this)">
+        <div class="gallery-image">💳</div>
+        <div class="gallery-category">App</div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-content">
+            <h3>Proceso de Pago</h3>
+            <p>Reserva y pago seguro</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="oficina" onclick="openModal(this)">
+        <div class="gallery-image">🏢</div>
+        <div class="gallery-category">Oficina</div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-content">
+            <h3>Oficinas Centrales</h3>
+            <p>Nuestro espacio de trabajo en Madrid</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="oficina" onclick="openModal(this)">
+        <div class="gallery-image">💻</div>
+        <div class="gallery-category">Oficina</div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-content">
+            <h3>Sala de Desarrollo</h3>
+            <p>Donde creamos la magia de AparcaYa</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="eventos" onclick="openModal(this)">
+        <div class="gallery-image">🎉</div>
+        <div class="gallery-category">Eventos</div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-content">
+            <h3>Lanzamiento App</h3>
+            <p>Celebración del lanzamiento oficial</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="eventos" onclick="openModal(this)">
+        <div class="gallery-image">🏆</div>
+        <div class="gallery-category">Eventos</div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-content">
+            <h3>Premios TechMobility</h3>
+            <p>Recibiendo el premio a mejor app</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="equipo" onclick="openModal(this)">
+        <div class="gallery-image">👥</div>
+        <div class="gallery-category">Equipo</div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-content">
+            <h3>Equipo AparcaYa</h3>
+            <p>Los creadores detrás de la app</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="equipo" onclick="openModal(this)">
+        <div class="gallery-image">🤝</div>
+        <div class="gallery-category">Equipo</div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-content">
+            <h3>Reunión de Equipo</h3>
+            <p>Planificando nuevas funcionalidades</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="app" onclick="openModal(this)">
+        <div class="gallery-image">🔔</div>
+        <div class="gallery-category">App</div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-content">
+            <h3>Notificaciones</h3>
+            <p>Sistema de alertas inteligentes</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="app" onclick="openModal(this)">
+        <div class="gallery-image">📊</div>
+        <div class="gallery-category">App</div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-content">
+            <h3>Estadísticas</h3>
+            <p>Panel de control personal</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="eventos" onclick="openModal(this)">
+        <div class="gallery-image">🎤</div>
+        <div class="gallery-category">Eventos</div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-content">
+            <h3>Presentación Pública</h3>
+            <p>Presentando AparcaYa en eventos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin: 40px 0;">
+      <a href="funcionalidades.html" class="cta-button">Ver funcionalidades</a>
+      <a href="contacto.html" class="cta-button" style="background-color: #28a745; margin-left: 10px;">Contactar</a>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div id="imageModal" class="modal">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <img class="modal-image" id="modalImage" src="" alt="Imagen ampliada">
+      <div class="modal-caption" id="modalCaption">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDescription"></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 AparcaYa. Todos los derechos reservados.</p>
+    <p>Hecho con ❤️ para hacer las ciudades más accesibles</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const navMenu = document.getElementById('navMenu');
+      navMenu.classList.toggle('active');
+    }
+
+    // Cerrar menú al hacer clic en un enlace
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navMenu').classList.remove('active');
+      });
+    });
+
+    // Filtros de galería
+    function filterGallery(category) {
+      const items = document.querySelectorAll('.gallery-item');
+      const buttons = document.querySelectorAll('.filter-btn');
+      
+      // Actualizar botones activos
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Filtrar elementos
+      items.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Modal functions
+    function openModal(element) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDescription = document.getElementById('modalDescription');
+      
+      // Obtener información del elemento
+      const overlay = element.querySelector('.gallery-overlay-content');
+      const title = overlay.querySelector('h3').textContent;
+      const description = overlay.querySelector('p').textContent;
+      
+      // Configurar modal
+      modalImage.src = element.querySelector('.gallery-image').innerHTML;
+      modalTitle.textContent = title;
+      modalDescription.textContent = description;
+      
+      modal.style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+
+    // Cerrar modal al hacer clic fuera
+    window.onclick = function(event) {
+      const modal = document.getElementById('imageModal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    // Cerrar modal con ESC
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html> 

@@ -4,49 +4,293 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AparcaYa</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom, #f5f9ff, #dceeff);
-      color: #333;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #fafdff;
+      color: #222;
+    }
+
+    /* Navegación */
+    nav {
+      background: transparent;
+      box-shadow: none;
+      padding: 1.5rem 0 0.5rem 0;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 32px;
+    }
+
+    .logo {
+      color: #2196f3;
+      font-size: 2rem;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    .nav-menu li a {
+      color: #222;
+      font-weight: 500;
+      padding: 0.5rem 1.2rem;
+      border-radius: 22px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-menu li a:hover, .nav-menu li a.active {
+      background: #e3f0ff;
+      color: #2196f3;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #007bff;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .nav-menu li {
+        margin: 0.5rem 0;
+      }
     }
 
     header {
-      background-color: #007bff;
-      color: white;
-      padding: 40px 20px;
+      background: linear-gradient(120deg, #e3f0ff 60%, #fafdff 100%);
+      color: #222;
+      padding: 80px 20px 60px 20px;
       text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      box-shadow: none;
+      border-radius: 0 0 48px 48px;
+      margin-bottom: 40px;
+      position: relative;
     }
 
     header h1 {
-      font-size: 3rem;
-      margin-bottom: 0.3em;
+      font-size: 3.5rem;
+      margin-bottom: 0.5em;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #2196f3;
     }
 
     header p {
-      font-size: 1.2rem;
-      margin: 0;
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 2.5em;
     }
 
     main {
-      max-width: 1000px;
+      max-width: 1400px;
+      width: 95vw;
       margin: 40px auto;
-      padding: 30px;
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 32px 32px 48px 32px;
+      background-color: #fff;
+      border-radius: 32px;
+      box-shadow: 0 8px 32px rgba(33,150,243,0.06);
     }
 
-    main h2 {
-      color: #007bff;
+    main h2, .section-title h2 {
+      color: #2196f3;
       margin-top: 0;
+      border-bottom: none;
+      padding-bottom: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5em;
+    }
+
+    .section {
+      margin-bottom: 64px;
+      padding: 0 0 24px 0;
+      border-bottom: 1px solid #e3f0ff;
+    }
+
+    .features-grid {
+      gap: 32px;
+      margin: 32px 0;
+    }
+
+    .feature-card {
+      background: #fafdff;
+      padding: 32px 24px;
+      border-radius: 18px;
+      border-left: 5px solid #2196f3;
+      box-shadow: 0 2px 8px rgba(33,150,243,0.04);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      box-shadow: 0 8px 32px rgba(33,150,243,0.10);
+      transform: translateY(-4px) scale(1.02);
+    }
+
+    .feature-card h3 {
+      color: #2196f3;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(90deg, #2196f3 60%, #5fa8ff 100%);
+      color: white;
+      padding: 16px 40px;
+      text-decoration: none;
+      border-radius: 32px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 16px rgba(33,150,243,0.08);
+      transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+      margin: 10px 0;
+    }
+
+    .cta-button:hover {
+      background: #1769aa;
+      box-shadow: 0 8px 32px rgba(33,150,243,0.16);
+      transform: translateY(-2px) scale(1.03);
     }
 
     ul {
       padding-left: 20px;
       line-height: 1.6;
+    }
+
+    .contact-info {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .testimonials-section {
+      background: #fafdff;
+      padding: 48px 0;
+      margin: 64px 0 0 0;
+      border-radius: 32px;
+      box-shadow: 0 4px 24px rgba(33,150,243,0.04);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin: 30px 0;
+    }
+
+    .testimonial-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 8px rgba(33,150,243,0.06);
+      border: 1.5px solid #e3f0ff;
+      padding: 32px 24px;
+    }
+
+    .testimonial-card:hover {
+      box-shadow: 0 8px 32px rgba(33,150,243,0.10);
+      transform: translateY(-4px) scale(1.01);
+    }
+
+    .testimonial-content {
+      margin-bottom: 20px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #2196f3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .author-info h4 {
+      margin: 0;
+      color: #333;
+    }
+
+    .author-info p {
+      margin: 5px 0 0 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .rating {
+      display: flex;
+      gap: 5px;
+      margin: 10px 0;
+    }
+
+    .star {
+      color: #ffc107;
+      font-size: 1.2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .section-title p {
+      color: #666;
+      font-size: 1.1rem;
     }
 
     footer {
@@ -57,28 +301,597 @@
       color: #666;
       margin-top: 50px;
     }
+
+    /* Chat Widget */
+    .chat-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .chat-button {
+      width: 60px;
+      height: 60px;
+      background: #007bff;
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .chat-button:hover {
+      transform: scale(1.1);
+      background: #0056b3;
+    }
+
+    .chat-window {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 350px;
+      height: 500px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #007bff;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .close-chat {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background: #f8f9fa;
+    }
+
+    .message {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .message.user {
+      flex-direction: row-reverse;
+    }
+
+    .message-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: #007bff;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .message.user .message-avatar {
+      background: #28a745;
+    }
+
+    .message-content {
+      background: white;
+      padding: 10px 15px;
+      border-radius: 18px;
+      max-width: 70%;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .message.user .message-content {
+      background: #007bff;
+      color: white;
+    }
+
+    .chat-input {
+      padding: 15px;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 20px;
+      outline: none;
+    }
+
+    .chat-input button {
+      padding: 10px 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .chat-input button:hover {
+      background: #0056b3;
+    }
+
+    .typing-indicator {
+      padding: 10px 15px;
+      color: #666;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    /* Animaciones */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .animate-fade-in-left {
+      animation: fadeInLeft 0.8s ease-out;
+    }
+
+    .animate-fade-in-right {
+      animation: fadeInRight 0.8s ease-out;
+    }
+
+    .animate-pulse {
+      animation: pulse 2s infinite;
+    }
+
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Efectos hover mejorados */
+    .feature-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,123,255,0.3);
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-8px) rotate(1deg);
+    }
+
+    /* Scroll animations */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .scroll-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Loading animation */
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #007bff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Parallax effect */
+    .parallax-section {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(45deg, #2196f3, #5fa8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo">AparcaYa</a>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="funcionalidades.html">Funcionalidades</a></li>
+        <li><a href="como-funciona.html">Cómo Funciona</a></li>
+        <li><a href="precios.html">Precios</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="galeria.html">Galería</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header id="inicio">
     <h1>AparcaYa</h1>
     <p>Encuentra aparcamiento en tu ciudad de forma rápida y sencilla</p>
+    <a href="funcionalidades.html" class="cta-button">Descubre más</a>
   </header>
 
   <main>
-    <h2>¿Qué es AparcaYa?</h2>
-    <p>AparcaYa es una app móvil que te ayuda a encontrar plazas de aparcamiento disponibles en zonas urbanas congestionadas.</p>
+    <section class="section">
+      <h2>¿Qué es AparcaYa?</h2>
+      <p class="animate-fade-in-up">AparcaYa es una aplicación móvil revolucionaria que transforma la forma en que encuentras aparcamiento en las ciudades. Nuestra plataforma conecta conductores con plazas de aparcamiento disponibles en tiempo real, eliminando la frustración de dar vueltas buscando un lugar para aparcar.</p>
+      
+      <div class="features-grid">
+        <div class="feature-card animate-fade-in-left">
+          <h3>🚗 Búsqueda Inteligente</h3>
+          <p>Nuestro algoritmo encuentra las mejores opciones de aparcamiento cerca de tu destino.</p>
+        </div>
+        <div class="feature-card animate-fade-in-up">
+          <h3>⏰ Ahorra Tiempo</h3>
+          <p>Evita dar vueltas innecesarias y llega directo a tu plaza reservada.</p>
+        </div>
+        <div class="feature-card animate-fade-in-right">
+          <h3>💰 Ahorra Dinero</h3>
+          <p>Encuentra las mejores tarifas y evita multas por aparcar incorrectamente.</p>
+        </div>
+      </div>
+    </section>
 
-    <h2>¿Cómo funciona?</h2>
-    <ul>
-      <li>Consulta plazas disponibles en tiempo real.</li>
-      <li>Reserva tu sitio antes de llegar.</li>
-      <li>Contribuye a la comunidad informando cuando te vayas.</li>
-    </ul>
+    <section class="section">
+      <h2>¿Por qué elegir AparcaYa?</h2>
+      <ul class="scroll-animate">
+        <li><strong>Facilidad de uso:</strong> Interfaz intuitiva que cualquiera puede usar</li>
+        <li><strong>Precisión:</strong> Información en tiempo real actualizada constantemente</li>
+        <li><strong>Seguridad:</strong> Pagos seguros y datos protegidos</li>
+        <li><strong>Comunidad:</strong> Contribuye ayudando a otros conductores</li>
+        <li><strong>Soporte 24/7:</strong> Estamos aquí para ayudarte cuando lo necesites</li>
+      </ul>
+      
+      <div style="text-align: center; margin: 30px 0;">
+        <a href="como-funciona.html" class="cta-button animate-pulse">Ver cómo funciona</a>
+        <a href="precios.html" class="cta-button" style="background-color: #28a745; margin-left: 10px;">Ver precios</a>
+      </div>
+    </section>
+
+    <section class="testimonials-section">
+      <div class="section-title">
+        <h2 class="gradient-text">Lo que dicen nuestros usuarios</h2>
+        <p>Descubre por qué miles de personas confían en AparcaYa</p>
+      </div>
+      
+      <div class="testimonials-grid">
+        <div class="testimonial-card scroll-animate">
+          <div class="rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <div class="testimonial-content">
+            <p>"¡Increíble! AparcaYa me ha ayudado a encontrar un lugar para aparcar en solo minutos. La aplicación es muy fácil de usar y la información es muy precisa. Ya no tengo que dar vueltas buscando aparcamiento."</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">J</div>
+            <div class="author-info">
+              <h4>Juan Pérez</h4>
+              <p>Conductor frecuente en Madrid</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card scroll-animate">
+          <div class="rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <div class="testimonial-content">
+            <p>"¡Genial! AparcaYa me ha ahorrado mucho tiempo y dinero. La aplicación es muy útil y la interfaz es muy intuitiva. Las notificaciones me ayudan a no perder tiempo."</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">M</div>
+            <div class="author-info">
+              <h4>María López</h4>
+              <p>Usuaria Premium desde 2023</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card scroll-animate">
+          <div class="rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <div class="testimonial-content">
+            <p>"¡Excelente! AparcaYa me ha salvado la vida en varias ocasiones. La aplicación es muy confiable y la comunidad es muy útil. Recomiendo a todos mis amigos."</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">A</div>
+            <div class="author-info">
+              <h4>Ana García</h4>
+              <p>Conductora en Barcelona</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
-    © 2025 AparcaYa. Todos los derechos reservados.
+    <p>© 2025 AparcaYa. Todos los derechos reservados.</p>
+    <p>Hecho con ❤️ para hacer las ciudades más accesibles</p>
   </footer>
+
+  <!-- Chat Widget -->
+  <div class="chat-widget">
+    <button class="chat-button" onclick="toggleChat()">💬</button>
+    <div class="chat-window" id="chatWindow">
+      <div class="chat-header">
+        <h3>💬 Soporte AparcaYa</h3>
+        <button class="close-chat" onclick="toggleChat()">✕</button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message">
+          <div class="message-avatar">A</div>
+          <div class="message-content">
+            ¡Hola! 👋 Soy el asistente virtual de AparcaYa. ¿En qué puedo ayudarte hoy?
+          </div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="Escribe tu mensaje..." onkeypress="handleChatKeyPress(event)">
+        <button onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const navMenu = document.getElementById('navMenu');
+      navMenu.classList.toggle('active');
+    }
+
+    // Cerrar menú al hacer clic en un enlace
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navMenu').classList.remove('active');
+      });
+    });
+
+    // Chat Widget Functions
+    function toggleChat() {
+      const chatWindow = document.getElementById('chatWindow');
+      if (chatWindow.style.display === 'flex') {
+        chatWindow.style.display = 'none';
+      } else {
+        chatWindow.style.display = 'flex';
+        document.getElementById('chatInput').focus();
+      }
+    }
+
+    function handleChatKeyPress(event) {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const message = input.value.trim();
+      
+      if (message) {
+        addMessage(message, 'user');
+        input.value = '';
+        
+        // Simular respuesta del bot
+        setTimeout(() => {
+          const botResponse = getBotResponse(message);
+          addMessage(botResponse, 'bot');
+        }, 1000);
+      }
+    }
+
+    function addMessage(text, sender) {
+      const messagesContainer = document.getElementById('chatMessages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${sender}`;
+      
+      const avatar = document.createElement('div');
+      avatar.className = 'message-avatar';
+      avatar.textContent = sender === 'user' ? 'Tú' : 'A';
+      
+      const content = document.createElement('div');
+      content.className = 'message-content';
+      content.textContent = text;
+      
+      messageDiv.appendChild(avatar);
+      messageDiv.appendChild(content);
+      messagesContainer.appendChild(messageDiv);
+      
+      // Scroll to bottom
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function getBotResponse(userMessage) {
+      const message = userMessage.toLowerCase();
+      
+      if (message.includes('hola') || message.includes('buenos días') || message.includes('buenas')) {
+        return '¡Hola! ¿En qué puedo ayudarte hoy? Puedo responder preguntas sobre nuestra app, precios, o ayudarte con cualquier problema.';
+      }
+      
+      if (message.includes('precio') || message.includes('cuesta') || message.includes('tarifa')) {
+        return 'Tenemos diferentes planes: Plan Básico (gratis), Plan Premium (€4.99/mes) y Plan Empresarial (€19.99/mes). ¿Te gustaría que te explique las diferencias?';
+      }
+      
+      if (message.includes('descargar') || message.includes('app') || message.includes('instalar')) {
+        return '¡Perfecto! Puedes descargar AparcaYa desde la App Store (iOS) o Google Play Store (Android). ¿En qué dispositivo lo vas a instalar?';
+      }
+      
+      if (message.includes('problema') || message.includes('error') || message.includes('no funciona')) {
+        return 'Lamento escuchar que tienes un problema. Te recomiendo contactar con nuestro equipo de soporte técnico en soporte@aparcaya.com o llamar al +34 900 123 457.';
+      }
+      
+      if (message.includes('funcionalidad') || message.includes('característica') || message.includes('qué hace')) {
+        return 'AparcaYa te ayuda a encontrar aparcamiento en tiempo real, reservar plazas, recibir notificaciones y ahorrar tiempo y dinero. ¿Te gustaría saber más sobre alguna funcionalidad específica?';
+      }
+      
+      if (message.includes('gracias') || message.includes('thanks')) {
+        return '¡De nada! 😊 Si tienes más preguntas, no dudes en preguntarme. ¡Estoy aquí para ayudarte!';
+      }
+      
+      return 'Gracias por tu mensaje. Si tienes alguna pregunta específica sobre AparcaYa, precios, funcionalidades o necesitas soporte técnico, estaré encantado de ayudarte.';
+    }
+
+    // Scroll animations
+    function handleScrollAnimations() {
+      const elements = document.querySelectorAll('.scroll-animate');
+      
+      elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.classList.add('visible');
+        }
+      });
+    }
+
+    // Initialize scroll animations
+    window.addEventListener('scroll', handleScrollAnimations);
+    window.addEventListener('load', handleScrollAnimations);
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Add loading animation to buttons
+    document.querySelectorAll('.cta-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const originalText = this.textContent;
+        this.innerHTML = '<span class="loading-spinner"></span> Cargando...';
+        
+        setTimeout(() => {
+          this.textContent = originalText;
+        }, 2000);
+      });
+    });
+  </script>
 </body>
 </html>

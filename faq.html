@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ - AparcaYa</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: linear-gradient(120deg, #b6e0fe, #a7c7ff, #d0e6ff, #b6e0fe);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #222;
+    }
+
+    /* Navegación */
+    nav {
+      background: linear-gradient(120deg, #5fa8ff, #7ecbff, #b6e0fe, #5fa8ff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    .nav-menu li a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .nav-menu li a:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .nav-menu li a.active {
+      background-color: rgba(255,255,255,0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #007bff;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .nav-menu li {
+        margin: 0.5rem 0;
+      }
+    }
+
+    header {
+      background: linear-gradient(120deg, #5fa8ff, #7ecbff, #b6e0fe, #5fa8ff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.3em;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    main {
+      max-width: 1400px;
+      width: 95vw;
+      margin: 40px auto;
+      padding: 20px 24px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .faq-header h2 {
+      color: #5fa8ff;
+      margin-bottom: 10px;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+
+    .search-section {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .search-box {
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+      gap: 10px;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 25px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: #007bff;
+    }
+
+    .search-btn {
+      padding: 15px 25px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .search-btn:hover {
+      background: #0056b3;
+    }
+
+    .faq-categories {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      padding: 10px 20px;
+      border: 2px solid #007bff;
+      background: white;
+      color: #007bff;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+      background: #007bff;
+      color: white;
+    }
+
+    .faq-section {
+      margin: 40px 0;
+    }
+
+    .faq-section h3 {
+      color: #5fa8ff;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+
+    .faq-item {
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .faq-question {
+      padding: 20px;
+      background: white;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      color: #333;
+      transition: background-color 0.3s;
+    }
+
+    .faq-question:hover {
+      background: #f0f8ff;
+    }
+
+    .faq-question.active {
+      background: #007bff;
+      color: white;
+    }
+
+    .faq-toggle {
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+
+    .faq-question.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+    }
+
+    .faq-answer.active {
+      padding: 20px;
+      max-height: 500px;
+    }
+
+    .faq-answer p {
+      margin: 0 0 15px 0;
+      line-height: 1.6;
+    }
+
+    .faq-answer ul {
+      margin: 15px 0;
+      padding-left: 20px;
+    }
+
+    .faq-answer li {
+      margin-bottom: 8px;
+    }
+
+    .helpful-section {
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: white;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .helpful-section h3 {
+      color: white;
+      border: none;
+      margin-bottom: 20px;
+    }
+
+    .helpful-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .helpful-btn {
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .helpful-btn:hover {
+      background: rgba(255,255,255,0.3);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: #007bff;
+      color: white;
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      margin: 10px 0;
+    }
+
+    .cta-button:hover {
+      background-color: #0056b3;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .no-results h3 {
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background-color: #f1f1f1;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 768px) {
+      .search-box {
+        flex-direction: column;
+      }
+      
+      .helpful-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">AparcaYa</a>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="funcionalidades.html">Funcionalidades</a></li>
+        <li><a href="como-funciona.html">Cómo Funciona</a></li>
+        <li><a href="precios.html">Precios</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="galeria.html">Galería</a></li>
+        <li><a href="faq.html" class="active">FAQ</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Preguntas Frecuentes</h1>
+    <p>Encuentra respuestas rápidas a todas tus dudas</p>
+  </header>
+
+  <main>
+    <div class="faq-header">
+      <h2>¿En qué podemos ayudarte?</h2>
+      <p>Busca entre nuestras preguntas más frecuentes o navega por categorías</p>
+    </div>
+
+    <div class="search-section">
+      <div class="search-box">
+        <input type="text" class="search-input" id="searchInput" placeholder="Buscar en las preguntas frecuentes..." onkeyup="searchFAQ()">
+        <button class="search-btn" onclick="searchFAQ()">🔍</button>
+      </div>
+    </div>
+
+    <div class="faq-categories">
+      <button class="category-btn active" onclick="filterByCategory('all')">Todas</button>
+      <button class="category-btn" onclick="filterByCategory('general')">General</button>
+      <button class="category-btn" onclick="filterByCategory('app')">Aplicación</button>
+      <button class="category-btn" onclick="filterByCategory('precios')">Precios</button>
+      <button class="category-btn" onclick="filterByCategory('tecnico')">Técnico</button>
+      <button class="category-btn" onclick="filterByCategory('cuenta')">Cuenta</button>
+    </div>
+
+    <div class="faq-section" id="general">
+      <h3>📋 Preguntas Generales</h3>
+      
+      <div class="faq-item" data-category="general">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿Qué es AparcaYa?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>AparcaYa es una aplicación móvil que te ayuda a encontrar aparcamiento en tiempo real. Conecta conductores con plazas de aparcamiento disponibles, permitiendo reservas instantáneas y ahorrando tiempo y dinero.</p>
+          <p>Nuestra plataforma utiliza tecnología avanzada para:</p>
+          <ul>
+            <li>Mostrar plazas disponibles en tiempo real</li>
+            <li>Permitir reservas con un solo toque</li>
+            <li>Proporcionar información precisa de precios</li>
+            <li>Ofrecer rutas optimizadas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="general">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿En qué ciudades está disponible AparcaYa?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Actualmente AparcaYa está disponible en las principales ciudades de España:</p>
+          <ul>
+            <li>Madrid</li>
+            <li>Barcelona</li>
+            <li>Valencia</li>
+            <li>Sevilla</li>
+            <li>Bilbao</li>
+            <li>Málaga</li>
+          </ul>
+          <p>Estamos expandiendo constantemente nuestra cobertura. Si tu ciudad no está en la lista, puedes registrarte para recibir notificaciones cuando esté disponible.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="general">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿Es seguro usar AparcaYa?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Sí, AparcaYa es completamente seguro. Implementamos las siguientes medidas de seguridad:</p>
+          <ul>
+            <li><strong>Pagos seguros:</strong> Todos los pagos se procesan con encriptación SSL de nivel bancario</li>
+            <li><strong>Protección de datos:</strong> Cumplimos con el RGPD y protegemos tu información personal</li>
+            <li><strong>Verificación de usuarios:</strong> Todos los usuarios pasan por un proceso de verificación</li>
+            <li><strong>Seguro de responsabilidad:</strong> Todas las reservas incluyen cobertura de seguro</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-section" id="app">
+      <h3>📱 Aplicación</h3>
+      
+      <div class="faq-item" data-category="app">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿Cómo descargo la aplicación?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Descargar AparcaYa es muy sencillo:</p>
+          <ul>
+            <li><strong>iOS:</strong> Busca "AparcaYa" en la App Store</li>
+            <li><strong>Android:</strong> Busca "AparcaYa" en Google Play Store</li>
+          </ul>
+          <p>La aplicación es gratuita y ocupa solo 25MB. Una vez descargada, puedes crear tu cuenta en menos de 2 minutos.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="app">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿Qué funcionalidades incluye la app?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>AparcaYa incluye las siguientes funcionalidades principales:</p>
+          <ul>
+            <li><strong>Búsqueda en tiempo real:</strong> Encuentra plazas disponibles al instante</li>
+            <li><strong>Reservas:</strong> Reserva tu plaza con un solo toque</li>
+            <li><strong>Notificaciones:</strong> Recibe alertas sobre tu aparcamiento</li>
+            <li><strong>Historial:</strong> Consulta todos tus aparcamientos anteriores</li>
+            <li><strong>Pagos:</strong> Paga de forma segura desde la app</li>
+            <li><strong>Mapa interactivo:</strong> Visualiza plazas en un mapa detallado</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="app">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿La app funciona sin conexión a internet?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>AparcaYa requiere conexión a internet para funcionar correctamente, ya que necesita:</p>
+          <ul>
+            <li>Acceso a datos en tiempo real de plazas disponibles</li>
+            <li>Procesamiento de pagos seguros</li>
+            <li>Sincronización con el servidor</li>
+          </ul>
+          <p>Sin embargo, la app está optimizada para consumir muy pocos datos (aproximadamente 5MB por sesión).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-section" id="precios">
+      <h3>💰 Precios y Pagos</h3>
+      
+      <div class="faq-item" data-category="precios">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿Cuánto cuesta usar AparcaYa?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>AparcaYa ofrece diferentes planes:</p>
+          <ul>
+            <li><strong>Plan Básico:</strong> Gratis - Búsqueda de plazas e información básica</li>
+            <li><strong>Plan Premium:</strong> €4.99/mes - Reservas ilimitadas y funcionalidades avanzadas</li>
+            <li><strong>Plan Empresarial:</strong> €19.99/mes - Para empresas y flotas</li>
+          </ul>
+          <p>Además, pagas solo por el tiempo que uses el aparcamiento, sin costes ocultos.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="precios">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿Qué métodos de pago aceptan?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Aceptamos múltiples métodos de pago:</p>
+          <ul>
+            <li>Tarjetas de crédito y débito (Visa, Mastercard, American Express)</li>
+            <li>PayPal</li>
+            <li>Apple Pay (iOS)</li>
+            <li>Google Pay (Android)</li>
+            <li>Transferencias bancarias (solo plan Empresarial)</li>
+          </ul>
+          <p>Todos los pagos se procesan de forma segura y puedes cambiar tu método de pago en cualquier momento.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="precios">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿Puedo cancelar mi suscripción?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Sí, puedes cancelar tu suscripción en cualquier momento:</p>
+          <ul>
+            <li><strong>Desde la app:</strong> Ve a Configuración > Suscripción > Cancelar</li>
+            <li><strong>Por email:</strong> Envía un email a soporte@aparcaya.com</li>
+            <li><strong>Por teléfono:</strong> Llama al +34 900 123 457</li>
+          </ul>
+          <p>La cancelación se aplicará al final del período de facturación actual. No hay penalizaciones por cancelar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-section" id="tecnico">
+      <h3>🔧 Soporte Técnico</h3>
+      
+      <div class="faq-item" data-category="tecnico">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿Qué hago si la app no funciona correctamente?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Si experimentas problemas con la app, sigue estos pasos:</p>
+          <ol>
+            <li><strong>Reinicia la app:</strong> Cierra completamente la aplicación y vuelve a abrirla</li>
+            <li><strong>Verifica tu conexión:</strong> Asegúrate de tener una conexión estable a internet</li>
+            <li><strong>Actualiza la app:</strong> Descarga la última versión desde la tienda</li>
+            <li><strong>Reinicia tu dispositivo:</strong> En casos extremos, reinicia tu smartphone</li>
+            <li><strong>Contacta soporte:</strong> Si el problema persiste, contacta con nuestro equipo técnico</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="tecnico">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿La app consume mucha batería?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>AparcaYa está optimizada para consumir poca batería:</p>
+          <ul>
+            <li><strong>Uso moderado:</strong> Aproximadamente 2-3% de batería por hora de uso activo</li>
+            <li><strong>Modo ahorro:</strong> La app se pausa automáticamente cuando no la usas</li>
+            <li><strong>Configuración:</strong> Puedes ajustar la frecuencia de actualizaciones</li>
+          </ul>
+          <p>Para optimizar aún más el consumo, puedes desactivar las notificaciones push cuando no las necesites.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-section" id="cuenta">
+      <h3>👤 Cuenta y Perfil</h3>
+      
+      <div class="faq-item" data-category="cuenta">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿Cómo cambio mi información personal?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Para cambiar tu información personal:</p>
+          <ol>
+            <li>Abre la app AparcaYa</li>
+            <li>Ve a "Perfil" en el menú principal</li>
+            <li>Toca "Editar Perfil"</li>
+            <li>Modifica los campos que desees</li>
+            <li>Guarda los cambios</li>
+          </ol>
+          <p>Puedes cambiar tu nombre, email, teléfono y método de pago en cualquier momento.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="cuenta">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          ¿Puedo tener múltiples vehículos registrados?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Sí, puedes registrar múltiples vehículos en tu cuenta:</p>
+          <ul>
+            <li><strong>Plan Básico:</strong> Hasta 2 vehículos</li>
+            <li><strong>Plan Premium:</strong> Hasta 5 vehículos</li>
+            <li><strong>Plan Empresarial:</strong> Vehículos ilimitados</li>
+          </ul>
+          <p>Para añadir un vehículo, ve a Perfil > Mis Vehículos > Añadir Vehículo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="helpful-section">
+      <h3>¿No encontraste lo que buscabas?</h3>
+      <p>Nuestro equipo de soporte está aquí para ayudarte con cualquier pregunta adicional.</p>
+      
+      <div class="helpful-buttons">
+        <button class="helpful-btn" onclick="contactSupport()">📞 Llamar Soporte</button>
+        <button class="helpful-btn" onclick="sendEmail()">📧 Enviar Email</button>
+        <button class="helpful-btn" onclick="openChat()">💬 Chat en Vivo</button>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin: 40px 0;">
+      <a href="funcionalidades.html" class="cta-button">Ver funcionalidades</a>
+      <a href="contacto.html" class="cta-button" style="background-color: #28a745; margin-left: 10px;">Contactar</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 AparcaYa. Todos los derechos reservados.</p>
+    <p>Hecho con ❤️ para hacer las ciudades más accesibles</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const navMenu = document.getElementById('navMenu');
+      navMenu.classList.toggle('active');
+    }
+
+    // Cerrar menú al hacer clic en un enlace
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navMenu').classList.remove('active');
+      });
+    });
+
+    // Toggle FAQ items
+    function toggleFAQ(element) {
+      const answer = element.nextElementSibling;
+      const isActive = element.classList.contains('active');
+      
+      // Cerrar todos los FAQ abiertos
+      document.querySelectorAll('.faq-question.active').forEach(activeQuestion => {
+        if (activeQuestion !== element) {
+          activeQuestion.classList.remove('active');
+          activeQuestion.nextElementSibling.classList.remove('active');
+        }
+      });
+      
+      // Toggle el FAQ actual
+      element.classList.toggle('active');
+      answer.classList.toggle('active');
+    }
+
+    // Búsqueda en FAQ
+    function searchFAQ() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const faqItems = document.querySelectorAll('.faq-item');
+      let foundItems = 0;
+      
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question').textContent.toLowerCase();
+        const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+        
+        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+          item.style.display = 'block';
+          foundItems++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      
+      // Mostrar mensaje si no hay resultados
+      const noResults = document.querySelector('.no-results');
+      if (foundItems === 0 && searchTerm !== '') {
+        if (!noResults) {
+          const noResultsDiv = document.createElement('div');
+          noResultsDiv.className = 'no-results';
+          noResultsDiv.innerHTML = `
+            <h3>No se encontraron resultados</h3>
+            <p>Intenta con otras palabras clave o contacta con nuestro soporte.</p>
+          `;
+          document.querySelector('main').appendChild(noResultsDiv);
+        }
+      } else if (noResults) {
+        noResults.remove();
+      }
+    }
+
+    // Filtros por categoría
+    function filterByCategory(category) {
+      const buttons = document.querySelectorAll('.category-btn');
+      const faqItems = document.querySelectorAll('.faq-item');
+      
+      // Actualizar botones activos
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Limpiar búsqueda
+      document.getElementById('searchInput').value = '';
+      
+      // Filtrar elementos
+      faqItems.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Funciones de ayuda
+    function contactSupport() {
+      window.location.href = 'tel:+34900123457';
+    }
+
+    function sendEmail() {
+      window.location.href = 'mailto:soporte@aparcaya.com';
+    }
+
+    function openChat() {
+      // Aquí se abriría el chat en vivo
+      alert('Chat en vivo disponible en la página principal');
+    }
+
+    // Enter key para búsqueda
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchFAQ();
+      }
+    });
+  </script>
+</body>
+</html> 

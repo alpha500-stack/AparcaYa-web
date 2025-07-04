@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Funcionalidades - AparcaYa</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: linear-gradient(120deg, #b6e0fe, #a7c7ff, #d0e6ff, #b6e0fe);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #222;
+    }
+
+    /* Navegación */
+    nav {
+      background: linear-gradient(120deg, #5fa8ff, #7ecbff, #b6e0fe, #5fa8ff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    .nav-menu li a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .nav-menu li a:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .nav-menu li a.active {
+      background-color: rgba(255,255,255,0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #007bff;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .nav-menu li {
+        margin: 0.5rem 0;
+      }
+    }
+
+    header {
+      background: linear-gradient(120deg, #5fa8ff, #7ecbff, #b6e0fe, #5fa8ff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.3em;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    main {
+      max-width: 1400px;
+      width: 95vw;
+      margin: 40px auto;
+      padding: 20px 24px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    main h2, .section-title h2 {
+      color: #5fa8ff;
+      margin-top: 0;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin: 30px 0;
+    }
+
+    .feature-card {
+      background: #f8f9fa;
+      padding: 25px;
+      border-radius: 12px;
+      border-left: 5px solid #007bff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-card h3 {
+      color: #5fa8ff;
+      margin-top: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+
+    .feature-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: #007bff;
+      color: white;
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      margin: 10px 0;
+    }
+
+    .cta-button:hover {
+      background-color: #0056b3;
+    }
+
+    ul {
+      padding-left: 20px;
+      line-height: 1.6;
+    }
+
+    .feature-detail {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border-left: 4px solid #28a745;
+    }
+
+    footer {
+      background-color: #f1f1f1;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 50px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(45deg, #5fa8ff, #28a745);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">AparcaYa</a>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="funcionalidades.html" class="active">Funcionalidades</a></li>
+        <li><a href="como-funciona.html">Cómo Funciona</a></li>
+        <li><a href="precios.html">Precios</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Funcionalidades</h1>
+    <p>Descubre todo lo que AparcaYa puede hacer por ti</p>
+  </header>
+
+  <main>
+    <section class="section">
+      <h2>Funcionalidades Principales</h2>
+      <p>AparcaYa está diseñada para hacer tu experiencia de aparcamiento lo más sencilla y eficiente posible. Aquí te presentamos todas las funcionalidades que tenemos disponibles:</p>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="icon">🚗</span>
+          <h3>Búsqueda en Tiempo Real</h3>
+          <p>Encuentra plazas disponibles al instante con nuestro sistema de geolocalización avanzado. Nuestro algoritmo analiza múltiples fuentes de datos para darte la información más precisa y actualizada.</p>
+          <ul>
+            <li>Geolocalización precisa</li>
+            <li>Actualizaciones en tiempo real</li>
+            <li>Filtros personalizables</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <span class="icon">📱</span>
+          <h3>Reserva Instantánea</h3>
+          <p>Reserva tu plaza con un solo toque desde tu smartphone. Sin complicaciones, sin esperas. Tu plaza estará garantizada hasta que llegues.</p>
+          <ul>
+            <li>Reserva con un toque</li>
+            <li>Confirmación inmediata</li>
+            <li>Plaza garantizada</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <span class="icon">⏰</span>
+          <h3>Ahorra Tiempo</h3>
+          <p>Evita dar vueltas buscando aparcamiento. Llega directo a tu destino sabiendo exactamente dónde aparcar y cuánto te costará.</p>
+          <ul>
+            <li>Rutas optimizadas</li>
+            <li>Tiempo estimado de llegada</li>
+            <li>Sin vueltas innecesarias</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <span class="icon">💰</span>
+          <h3>Ahorra Dinero</h3>
+          <p>Encuentra las mejores tarifas y evita multas por aparcar mal. Compara precios y elige la opción más económica.</p>
+          <ul>
+            <li>Comparación de precios</li>
+            <li>Alertas de multas</li>
+            <li>Descuentos especiales</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <span class="icon">🔔</span>
+          <h3>Notificaciones Inteligentes</h3>
+          <p>Recibe alertas personalizadas sobre tu aparcamiento: cuando se acerca el tiempo límite, si hay una plaza mejor disponible, o si hay algún problema.</p>
+          <ul>
+            <li>Alertas de tiempo</li>
+            <li>Notificaciones de plaza</li>
+            <li>Recordatorios personalizados</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <span class="icon">📊</span>
+          <h3>Historial y Estadísticas</h3>
+          <p>Lleva un control de todos tus aparcamientos, gastos y patrones de uso. Analiza tus datos para optimizar tus futuras decisiones.</p>
+          <ul>
+            <li>Historial completo</li>
+            <li>Estadísticas de gastos</li>
+            <li>Patrones de uso</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Funcionalidades Avanzadas</h2>
+      
+      <div class="feature-detail">
+        <h3>🎯 Búsqueda Predictiva</h3>
+        <p>Nuestro sistema de IA aprende de tus patrones de uso para predecir dónde necesitarás aparcar y te sugiere las mejores opciones antes de que las busques.</p>
+      </div>
+
+      <div class="feature-detail">
+        <h3>🤝 Modo Comunidad</h3>
+        <p>Contribuye a la comunidad informando cuando te vas de una plaza. Ayuda a otros conductores y gana puntos que puedes canjear por descuentos.</p>
+      </div>
+
+      <div class="feature-detail">
+        <h3>🔒 Pagos Seguros</h3>
+        <p>Todos los pagos se procesan de forma segura con encriptación de nivel bancario. Tus datos están protegidos en todo momento.</p>
+      </div>
+
+      <div class="feature-detail">
+        <h3>🌍 Multiidioma</h3>
+        <p>La aplicación está disponible en múltiples idiomas y se adapta automáticamente a tu ubicación y preferencias.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Próximas Funcionalidades</h2>
+      <p>Estamos trabajando constantemente para mejorar AparcaYa. Aquí tienes un adelanto de lo que está por venir:</p>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>🚁 Vista Aérea</h3>
+          <p>Vista de dron para ver el estado real de los aparcamientos desde arriba.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🤖 Asistente IA</h3>
+          <p>Asistente virtual que te ayuda a encontrar el mejor aparcamiento según tus preferencias.</p>
+        </div>
+        <div class="feature-card">
+          <h3>⚡ Carga Rápida</h3>
+          <p>Integración con puntos de carga para vehículos eléctricos.</p>
+        </div>
+      </div>
+    </section>
+
+    <div style="text-align: center; margin: 40px 0;">
+      <a href="como-funciona.html" class="cta-button">Ver cómo funciona</a>
+      <a href="precios.html" class="cta-button" style="background-color: #28a745; margin-left: 10px;">Ver precios</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 AparcaYa. Todos los derechos reservados.</p>
+    <p>Hecho con ❤️ para hacer las ciudades más accesibles</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const navMenu = document.getElementById('navMenu');
+      navMenu.classList.toggle('active');
+    }
+
+    // Cerrar menú al hacer clic en un enlace
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navMenu').classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html> 
