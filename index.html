@@ -7,18 +7,83 @@
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    /* Variables CSS para modo oscuro/claro */
+    :root {
+      --bg-primary: #fafdff;
+      --bg-secondary: #fff;
+      --text-primary: #222;
+      --text-secondary: #333;
+      --accent-color: #2196f3;
+      --accent-light: #e3f0ff;
+      --shadow-color: rgba(33,150,243,0.06);
+      --card-bg: #fafdff;
+      --nav-bg: transparent;
+      --nav-text: #222;
+    }
+
+    /* Modo oscuro */
+    [data-theme="dark"] {
+      --bg-primary: #1a1a1a;
+      --bg-secondary: #2d2d2d;
+      --text-primary: #ffffff;
+      --text-secondary: #e0e0e0;
+      --accent-color: #64b5f6;
+      --accent-light: #1e3a5f;
+      --shadow-color: rgba(100,181,246,0.1);
+      --card-bg: #3d3d3d;
+      --nav-bg: rgba(45,45,45,0.95);
+      --nav-text: #ffffff;
+    }
+
     body {
       margin: 0;
       font-family: 'Roboto', Arial, sans-serif;
-      background: #fafdff;
-      color: #222;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
     }
 
-    /* Navegación */
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-color);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-light);
+    }
+
+    /* Navegación con efectos avanzados */
     nav {
-      background: transparent;
-      box-shadow: none;
+      background: var(--nav-bg);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
       padding: 1.5rem 0 0.5rem 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    }
+
+    [data-theme="dark"] nav.scrolled {
+      background: rgba(45,45,45,0.95);
     }
 
     .nav-container {
@@ -31,11 +96,54 @@
     }
 
     .logo {
-      color: #2196f3;
+      color: var(--accent-color);
       font-size: 2rem;
       font-weight: bold;
       text-decoration: none;
       letter-spacing: 1px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .logo::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    .logo:hover::after {
+      width: 100%;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent-color);
+      color: white;
+      transform: scale(1.05);
     }
 
     .menu-toggle {
@@ -57,20 +165,56 @@
     }
 
     .nav-menu li a {
-      color: #222;
+      color: var(--nav-text);
       font-weight: 500;
       padding: 0.5rem 1.2rem;
       border-radius: 22px;
-      transition: background 0.2s, color 0.2s;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-menu li a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--accent-light), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .nav-menu li a:hover::before {
+      left: 100%;
     }
 
     .nav-menu li a:hover, .nav-menu li a.active {
-      background: #e3f0ff;
-      color: #2196f3;
+      background: var(--accent-light);
+      color: var(--accent-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(33,150,243,0.2);
     }
 
     /* Responsive */
     @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 20px;
+      }
+
+      .nav-controls {
+        gap: 0.5rem;
+      }
+
+      .theme-toggle {
+        padding: 6px 10px;
+        font-size: 1rem;
+      }
+
+      .theme-text {
+        display: none;
+      }
+
       .menu-toggle {
         display: block;
       }
@@ -81,7 +225,8 @@
         top: 100%;
         left: 0;
         right: 0;
-        background-color: #007bff;
+        background-color: var(--nav-bg);
+        backdrop-filter: blur(15px);
         flex-direction: column;
         padding: 1rem;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -94,46 +239,223 @@
       .nav-menu li {
         margin: 0.5rem 0;
       }
+
+      header {
+        padding: 100px 20px 60px 20px;
+        min-height: 50vh;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      header p {
+        font-size: 1.2rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-buttons .cta-button {
+        margin: 5px 0;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      main {
+        padding: 20px;
+        margin: 20px auto;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .feature-card {
+        padding: 24px 20px;
+      }
+
+      .floating-elements {
+        display: none;
+      }
     }
 
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.5rem;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
+      main h2 {
+        font-size: 1.8rem;
+      }
+    }
+
+    /* Animaciones de entrada */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Header con parallax y animaciones */
     header {
-      background: linear-gradient(120deg, #e3f0ff 60%, #fafdff 100%);
-      color: #222;
-      padding: 80px 20px 60px 20px;
+      background: linear-gradient(120deg, var(--accent-light) 60%, var(--bg-primary) 100%);
+      color: var(--text-primary);
+      padding: 120px 20px 80px 20px;
       text-align: center;
       box-shadow: none;
       border-radius: 0 0 48px 48px;
       margin-bottom: 40px;
       position: relative;
+      overflow: hidden;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%232196f3" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+      animation: float 6s ease-in-out infinite;
     }
 
     header h1 {
-      font-size: 3.5rem;
+      font-size: 4rem;
       margin-bottom: 0.5em;
       font-family: 'Poppins', Arial, sans-serif;
       font-weight: 700;
       letter-spacing: 1px;
-      color: #2196f3;
+      color: var(--accent-color);
+      position: relative;
+      z-index: 2;
+      animation: fadeInUp 1s ease-out, pulse 3s ease-in-out infinite;
+      text-shadow: 0 2px 10px rgba(33,150,243,0.3);
     }
 
     header p {
       font-size: 1.5rem;
-      color: #333;
+      color: var(--text-secondary);
       margin-bottom: 2.5em;
+      position: relative;
+      z-index: 2;
+      animation: fadeInUp 1s ease-out 0.3s both;
+      max-width: 600px;
     }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+
+    .floating-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .floating-element {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.1;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+    .floating-element:nth-child(2) { top: 60%; right: 15%; animation-delay: 1s; }
+    .floating-element:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 2s; }
+    .floating-element:nth-child(4) { top: 40%; right: 30%; animation-delay: 3s; }
 
     main {
       max-width: 1400px;
       width: 95vw;
       margin: 40px auto;
       padding: 32px 32px 48px 32px;
-      background-color: #fff;
+      background-color: var(--bg-secondary);
       border-radius: 32px;
-      box-shadow: 0 8px 32px rgba(33,150,243,0.06);
+      box-shadow: 0 8px 32px var(--shadow-color);
+      position: relative;
+      overflow: hidden;
+    }
+
+    main::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+      opacity: 0.1;
+      animation: float 8s ease-in-out infinite;
     }
 
     main h2, .section-title h2 {
-      color: #2196f3;
+      color: var(--accent-color);
       margin-top: 0;
       border-bottom: none;
       padding-bottom: 0;
@@ -141,6 +463,19 @@
       font-size: 2.2rem;
       font-weight: 700;
       margin-bottom: 0.5em;
+      position: relative;
+      z-index: 2;
+    }
+
+    main h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-color), transparent);
+      border-radius: 2px;
     }
 
     .section {
@@ -155,30 +490,66 @@
     }
 
     .feature-card {
-      background: #fafdff;
+      background: var(--card-bg);
       padding: 32px 24px;
       border-radius: 18px;
-      border-left: 5px solid #2196f3;
-      box-shadow: 0 2px 8px rgba(33,150,243,0.04);
-      transition: box-shadow 0.2s, transform 0.2s;
+      border-left: 5px solid var(--accent-color);
+      box-shadow: 0 2px 8px var(--shadow-color);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(33,150,243,0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .feature-card:hover::before {
+      left: 100%;
     }
 
     .feature-card:hover {
-      box-shadow: 0 8px 32px rgba(33,150,243,0.10);
-      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 15px 40px var(--shadow-color);
+      transform: translateY(-8px) scale(1.03);
+      border-left-color: var(--accent-color);
     }
 
     .feature-card h3 {
-      color: #2196f3;
+      color: var(--accent-color);
       font-family: 'Poppins', Arial, sans-serif;
       font-size: 1.4rem;
       margin-top: 0;
       margin-bottom: 0.5em;
+      position: relative;
+      z-index: 2;
+    }
+
+    .feature-card p {
+      position: relative;
+      z-index: 2;
+      color: var(--text-secondary);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+      position: relative;
+      z-index: 2;
+      animation: pulse 2s ease-in-out infinite;
     }
 
     .cta-button {
       display: inline-block;
-      background: linear-gradient(90deg, #2196f3 60%, #5fa8ff 100%);
+      background: linear-gradient(90deg, var(--accent-color) 60%, #5fa8ff 100%);
       color: white;
       padding: 16px 40px;
       text-decoration: none;
@@ -186,14 +557,45 @@
       font-weight: bold;
       font-size: 1.2rem;
       box-shadow: 0 4px 16px rgba(33,150,243,0.08);
-      transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       margin: 10px 0;
+      position: relative;
+      overflow: hidden;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
     }
 
     .cta-button:hover {
-      background: #1769aa;
-      box-shadow: 0 8px 32px rgba(33,150,243,0.16);
-      transform: translateY(-2px) scale(1.03);
+      background: linear-gradient(90deg, #1769aa 60%, #4a90e2 100%);
+      box-shadow: 0 8px 32px rgba(33,150,243,0.3);
+      transform: translateY(-4px) scale(1.05);
+    }
+
+    .cta-button:active {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .cta-button.secondary {
+      background: linear-gradient(90deg, #28a745 60%, #34ce57 100%);
+    }
+
+    .cta-button.secondary:hover {
+      background: linear-gradient(90deg, #1e7e34 60%, #28a745 100%);
     }
 
     ul {
@@ -209,11 +611,13 @@
     }
 
     .testimonials-section {
-      background: #fafdff;
+      background: var(--card-bg);
       padding: 48px 0;
       margin: 64px 0 0 0;
       border-radius: 32px;
-      box-shadow: 0 4px 24px rgba(33,150,243,0.04);
+      box-shadow: 0 4px 24px var(--shadow-color);
+      position: relative;
+      z-index: 2;
     }
 
     .testimonials-grid {
@@ -224,16 +628,35 @@
     }
 
     .testimonial-card {
-      background: #fff;
+      background: var(--bg-secondary);
       border-radius: 18px;
-      box-shadow: 0 2px 8px rgba(33,150,243,0.06);
-      border: 1.5px solid #e3f0ff;
+      box-shadow: 0 2px 8px var(--shadow-color);
+      border: 1.5px solid var(--accent-light);
       padding: 32px 24px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(33,150,243,0.05), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .testimonial-card:hover::before {
+      left: 100%;
     }
 
     .testimonial-card:hover {
-      box-shadow: 0 8px 32px rgba(33,150,243,0.10);
-      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 15px 40px var(--shadow-color);
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--accent-color);
     }
 
     .testimonial-content {
@@ -263,12 +686,12 @@
 
     .author-info h4 {
       margin: 0;
-      color: #333;
+      color: var(--text-primary);
     }
 
     .author-info p {
       margin: 5px 0 0 0;
-      color: #666;
+      color: var(--text-secondary);
       font-size: 0.9rem;
     }
 
@@ -597,10 +1020,16 @@
 <body>
   <nav>
     <div class="nav-container">
-      <a href="#" class="logo">AparcaYa</a>
-      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <a href="index.html" class="logo">AparcaYa</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" onclick="toggleTheme()">
+          <span class="theme-icon">🌙</span>
+          <span class="theme-text">Oscuro</span>
+        </button>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      </div>
       <ul class="nav-menu" id="navMenu">
-        <li><a href="index.html">Inicio</a></li>
+        <li><a href="index.html" class="active">Inicio</a></li>
         <li><a href="funcionalidades.html">Funcionalidades</a></li>
         <li><a href="como-funciona.html">Cómo Funciona</a></li>
         <li><a href="precios.html">Precios</a></li>
@@ -612,9 +1041,18 @@
   </nav>
 
   <header id="inicio">
+    <div class="floating-elements">
+      <div class="floating-element">🚗</div>
+      <div class="floating-element">🅿️</div>
+      <div class="floating-element">📍</div>
+      <div class="floating-element">⏰</div>
+    </div>
     <h1>AparcaYa</h1>
     <p>Encuentra aparcamiento en tu ciudad de forma rápida y sencilla</p>
-    <a href="funcionalidades.html" class="cta-button">Descubre más</a>
+    <div class="hero-buttons">
+      <a href="funcionalidades.html" class="cta-button">Descubre más</a>
+      <a href="precios.html" class="cta-button secondary">Ver precios</a>
+    </div>
   </header>
 
   <main>
@@ -624,15 +1062,18 @@
       
       <div class="features-grid">
         <div class="feature-card animate-fade-in-left">
-          <h3>🚗 Búsqueda Inteligente</h3>
+          <span class="feature-icon">🚗</span>
+          <h3>Búsqueda Inteligente</h3>
           <p>Nuestro algoritmo encuentra las mejores opciones de aparcamiento cerca de tu destino.</p>
         </div>
         <div class="feature-card animate-fade-in-up">
-          <h3>⏰ Ahorra Tiempo</h3>
+          <span class="feature-icon">⏰</span>
+          <h3>Ahorra Tiempo</h3>
           <p>Evita dar vueltas innecesarias y llega directo a tu plaza reservada.</p>
         </div>
         <div class="feature-card animate-fade-in-right">
-          <h3>💰 Ahorra Dinero</h3>
+          <span class="feature-icon">💰</span>
+          <h3>Ahorra Dinero</h3>
           <p>Encuentra las mejores tarifas y evita multas por aparcar incorrectamente.</p>
         </div>
       </div>
@@ -649,8 +1090,8 @@
       </ul>
       
       <div style="text-align: center; margin: 30px 0;">
-        <a href="como-funciona.html" class="cta-button animate-pulse">Ver cómo funciona</a>
-        <a href="precios.html" class="cta-button" style="background-color: #28a745; margin-left: 10px;">Ver precios</a>
+        <a href="como-funciona.html" class="cta-button">Ver cómo funciona</a>
+        <a href="precios.html" class="cta-button secondary">Ver precios</a>
       </div>
     </section>
 
@@ -753,6 +1194,48 @@
   </div>
 
   <script>
+    // Toggle de tema oscuro/claro
+    function toggleTheme() {
+      const body = document.body;
+      const themeIcon = document.querySelector('.theme-icon');
+      const themeText = document.querySelector('.theme-text');
+      
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Oscuro';
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Claro';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    // Cargar tema guardado
+    function loadTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.querySelector('.theme-icon');
+      const themeText = document.querySelector('.theme-text');
+      
+      if (savedTheme === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Claro';
+      }
+    }
+
+    // Navegación con scroll
+    function handleNavScroll() {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 100) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }
+
     function toggleMenu() {
       const navMenu = document.getElementById('navMenu');
       navMenu.classList.toggle('active');
@@ -891,6 +1374,68 @@
           this.textContent = originalText;
         }, 2000);
       });
+    });
+
+    // Animaciones de entrada con Intersection Observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observar elementos con animaciones
+    document.querySelectorAll('.feature-card, .testimonial-card, .section').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+
+    // Event listeners
+    window.addEventListener('scroll', handleNavScroll);
+    window.addEventListener('load', () => {
+      loadTheme();
+      handleNavScroll();
+    });
+
+    // Efecto parallax en el header
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const header = document.querySelector('header');
+      const rate = scrolled * -0.5;
+      header.style.transform = `translateY(${rate}px)`;
+    });
+
+    // Animación de escritura para el título
+    function typeWriter(element, text, speed = 100) {
+      let i = 0;
+      element.innerHTML = '';
+      
+      function type() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        }
+      }
+      type();
+    }
+
+    // Iniciar animación de escritura cuando se carga la página
+    window.addEventListener('load', () => {
+      const title = document.querySelector('header h1');
+      const originalText = title.textContent;
+      setTimeout(() => {
+        typeWriter(title, originalText, 150);
+      }, 500);
     });
   </script>
 </body>
