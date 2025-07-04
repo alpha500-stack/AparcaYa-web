@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contacto - AparcaYa</title>
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap"
+    rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -25,7 +27,7 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .nav-container {
@@ -70,11 +72,11 @@
     }
 
     .nav-menu li a:hover {
-      background-color: rgba(255,255,255,0.2);
+      background-color: rgba(255, 255, 255, 0.2);
     }
 
     .nav-menu li a.active {
-      background-color: rgba(255,255,255,0.3);
+      background-color: rgba(255, 255, 255, 0.3);
     }
 
     /* Responsive */
@@ -92,7 +94,7 @@
         background-color: #007bff;
         flex-direction: column;
         padding: 1rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
       .nav-menu.active {
@@ -111,7 +113,7 @@
       color: white;
       padding: 40px 20px;
       text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     header h1 {
@@ -132,10 +134,11 @@
       padding: 20px 24px;
       background-color: white;
       border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
-    main h2, .section-title h2 {
+    main h2,
+    .section-title h2 {
       color: #5fa8ff;
       margin-top: 0;
       border-bottom: 2px solid #e0e0e0;
@@ -173,7 +176,7 @@
       padding: 15px;
       background: white;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .contact-item .icon {
@@ -298,7 +301,7 @@
       padding: 20px;
       border-radius: 8px;
       margin-top: 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .office-hours h4 {
@@ -353,7 +356,7 @@
       .contact-grid {
         grid-template-columns: 1fr;
       }
-      
+
       .form-row {
         grid-template-columns: 1fr;
       }
@@ -363,15 +366,18 @@
       0% {
         background-position: 0% 50%;
       }
+
       50% {
         background-position: 100% 50%;
       }
+
       100% {
         background-position: 0% 50%;
       }
     }
   </style>
 </head>
+
 <body>
   <nav>
     <div class="nav-container">
@@ -382,6 +388,8 @@
         <li><a href="funcionalidades.html">Funcionalidades</a></li>
         <li><a href="como-funciona.html">Cómo Funciona</a></li>
         <li><a href="precios.html">Precios</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="galeria.html">Galería</a></li>
         <li><a href="contacto.html" class="active">Contacto</a></li>
       </ul>
     </div>
@@ -395,12 +403,13 @@
   <main>
     <section class="section">
       <h2>Información de Contacto</h2>
-      <p>¿Tienes alguna pregunta, sugerencia o necesitas ayuda? Nuestro equipo está disponible para ayudarte en cualquier momento.</p>
-      
+      <p>¿Tienes alguna pregunta, sugerencia o necesitas ayuda? Nuestro equipo está disponible para ayudarte en
+        cualquier momento.</p>
+
       <div class="contact-grid">
         <div class="contact-info">
           <h3>Datos de Contacto</h3>
-          
+
           <div class="contact-item">
             <div class="icon">📧</div>
             <div class="content">
@@ -504,11 +513,11 @@
       <div class="map-section">
         <h2>Nuestra Ubicación</h2>
         <p>Visítanos en nuestras oficinas centrales en Madrid</p>
-        
+
         <div class="map-placeholder">
           🗺️ Mapa interactivo - Calle Innovación 123, Madrid
         </div>
-        
+
         <p><strong>Dirección:</strong> Calle Innovación 123, 28001 Madrid, España</p>
         <p><strong>Transporte público:</strong> Metro Línea 1 - Estación Sol (5 min a pie)</p>
       </div>
@@ -582,15 +591,16 @@
     });
 
     // Manejo del formulario de contacto
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
       e.preventDefault();
-      
+
       // Aquí iría la lógica para enviar el formulario
       alert('¡Gracias por tu mensaje! Te responderemos en breve.');
-      
+
       // Limpiar el formulario
       this.reset();
     });
   </script>
 </body>
-</html> 
+
+</html>
